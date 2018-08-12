@@ -16,6 +16,7 @@ public class Example2CassandraApplication implements CommandLineRunner {
 
 	public static void main(String[] args) {
 		SpringApplication.run(Example2CassandraApplication.class, args);
+		
 	}
 
 	@Override
