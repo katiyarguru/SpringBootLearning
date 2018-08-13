@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @SpringBootApplication
-@ComponentScan("com.vlcc.controller")
+@ComponentScan( "com.vlcc.app")
 public class VlccKalyanpurApplication {
 	
 public static void main(String[] args) {
