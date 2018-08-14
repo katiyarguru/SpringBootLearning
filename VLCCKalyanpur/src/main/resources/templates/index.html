@@ -2,13 +2,34 @@
 <html>
 <head>
 <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/css/bootstrap.css">
+  <link rel="stylesheet" href="/css/vlcclogin.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="/js/bootstrap.min.js"></script>
 <title>VLCC Kalyanpur</title>
 </head>
 <body>
     <form action="login" method="post">
-        User Name : <input type="text" name="username" />
-        Password : <input type="password" name="password" /> 
-        <input type="submit" />
+       
+<div id="login-modal" aria-labelledby="myModalLabel">
+              <div class="modal-dialog">
+				<div class="loginmodal-container">
+					<h1>VLCC Kalyanpur</h1>
+					<p>Please enter your username and password</p>
+					<input type="text" name="username" placeholder="Username">
+					<input type="password" name="password" placeholder="Password">
+					<input type="submit" name="login" class="login loginmodal-submit" value="Login">
+				 
+					
+				  <div class="login-help">
+					<a href="#" style = "color:#ffffff">Forgot Password</a>
+				  </div>
+				</div>
+			</div>
+		  </div>
+        
+        
     </form>
 
 </body>
