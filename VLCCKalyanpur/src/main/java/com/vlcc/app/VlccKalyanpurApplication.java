@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.datastax.driver.core.Cluster;
+import com.datastax.driver.core.Session;
+
 @SpringBootApplication
 @ComponentScan( "com.vlcc.app")
 public class VlccKalyanpurApplication {

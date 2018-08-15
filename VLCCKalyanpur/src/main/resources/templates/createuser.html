@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/css/bootstrap.css">
+  <link rel="stylesheet" href="/css/vlcclogin.css">
+   <link rel="icon" type="image/png" href="images/fav.png">
+   <style type="text/css">
+    /* Footer */
+footer{
+   background-color: #f56300;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 35px;
+    text-align: center;
+    color: #ffffff;
+}
+
+footer p {
+    padding: 10.5px;
+    margin: 0px;
+    line-height: 100%;
+}    </style>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="/js/bootstrap.min.js"></script>
+  
+<title>Welcome VLCC Kalyanpur</title>
+</head>
+<body>
+<div th:replace="fragments/header :: header">&nbsp;></div>
+<div th:replace="fragments/vlccfooter :: footer">&nbsp;></div>
+<div class="col-md-8 well">
+            <div class="row">
+    <div class="col-md-12" style=" padding-top: 20px">
+    	<form action="#" th:action="@{/saveuser}" method="post" th:object="${Login}">
+			<h2>Create New User</h2>
+			<hr class="colorgraph">
+			<div class="row">
+				<div class="col-xs-12 col-sm-6 col-md-6">
+					<div class="form-group">
+                        <input type="text" name="first_name" id="first_name" class="form-control input-lg" placeholder="First Name" tabindex="1">
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-6 col-md-6">
+					<div class="form-group">
+						<input type="text" name="last_name" id="last_name" class="form-control input-lg" placeholder="Last Name" tabindex="2">
+					</div>
+				</div>
+			</div>
+			<div class="row">
+			<div class="col-xs-12 col-sm-6 col-md-6">
+			<div class="form-group">
+				<input type="email" name="email" id="email" class="form-control input-lg" placeholder="Email Address" tabindex="4">
+			</div>
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-6">
+			<div class="form-group">
+				<input type="text" name="mobileNumber" id="mobileNumber" class="form-control input-lg" placeholder="Mobile Number" tabindex="4">
+			</div>
+			</div>
+			</div>
+			<div class="row">
+			
+				<div class="col-xs-12 col-sm-6 col-md-6">
+					<div class="form-group">
+						<input type="text" name="userName" id="userName" class="form-control input-lg" placeholder="UserName" tabindex="5">
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-6 col-md-6">
+					<div class="form-group">
+						<input type="password" name="password" id="password" class="form-control input-lg" placeholder="Password" tabindex="6">
+					</div>
+				</div>
+			</div>
+			<hr class="colorgraph">
+			<div class="row">
+				<div class="col-xs-12 col-md-6"></div>
+				<div class="col-xs-12 col-md-6"><input type="submit" class="btn btn-success btn-block btn-lg"></div>
+			</div>
+		</form>
+	</div>
+</div>
+</div>
+</body>
+</html>

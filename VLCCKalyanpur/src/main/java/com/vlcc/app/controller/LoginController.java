@@ -35,7 +35,7 @@ public class LoginController {
 		ModelAndView modelAndView = new ModelAndView();  
 		loginDetails=service.findByFirstName(username);
 		if (loginDetails.getUserName().equalsIgnoreCase(username) && loginDetails.getPassword().equals(password)) {
-            
+         
             modelAndView.setViewName("welcome");   
             
         }
