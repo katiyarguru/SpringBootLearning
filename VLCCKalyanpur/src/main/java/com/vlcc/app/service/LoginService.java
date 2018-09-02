@@ -10,7 +10,7 @@ import org.springframework.data.cassandra.core.CassandraTemplate;
 
 import com.vlcc.app.model.Login;
 @Component
-public interface LoginService  extends CassandraRepository<Login, String> {	
+public interface LoginService  extends CrudRepository<Login, String> {	
 	@Query("Select * from login where username=?0")
 	Login findByFirstName(String userName);
 	

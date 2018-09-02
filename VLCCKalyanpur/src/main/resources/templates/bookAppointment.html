@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="/css/bootstrap.css">
   <link rel="stylesheet" href="/css/vlcclogin.css">
+  <link rel="stylesheet" href="/css/bootstrap-datetimepicker.css">
    <link rel="icon" type="image/png" href="images/fav.png">
    <style type="text/css">
     /* Footer */
@@ -27,8 +28,12 @@ footer p {
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="/js/bootstrap.min.js"></script>
+        <script src="/js/moment-with-locales.js"></script>
+       <script src="/js/bootstrap-datetimepicker.js"></script>
+        
+        
   
-<title>Welcome VLCC Kalyanpur</title>
+<title>Book Appointment</title>
 </head>
 <body>
 <div th:replace="fragments/header :: header">&nbsp;></div>
@@ -37,17 +42,17 @@ footer p {
             <div class="row">
     <div class="col-md-12" style=" padding-top: 20px">
     	<form action="#" th:action="@{/saveuser}" method="post" th:object="${Login}">
-			<h2>Create New User</h2>
+			<h2>Book Appointment</h2>
 			<hr class="colorgraph">
 			<div class="row">
 				<div class="col-xs-12 col-sm-6 col-md-6">
 					<div class="form-group">
-                        <input type="text" name="first_name" id="first_name" class="form-control input-lg" placeholder="First Name" tabindex="1">
+                        <input type="text" name="name" id="name" class="form-control input-lg" placeholder="Name" tabindex="1">
 					</div>
 				</div>
 				<div class="col-xs-12 col-sm-6 col-md-6">
 					<div class="form-group">
-						<input type="text" name="last_name" id="last_name" class="form-control input-lg" placeholder="Last Name" tabindex="2">
+						<input type="text" name="service" id="service" class="form-control input-lg" placeholder="Service" tabindex="2">
 					</div>
 				</div>
 			</div>
@@ -67,12 +72,23 @@ footer p {
 			
 				<div class="col-xs-12 col-sm-6 col-md-6">
 					<div class="form-group">
-						<input type="text" name="userName" id="userName" class="form-control input-lg" placeholder="User Name" tabindex="5">
+						<input type="text" name="address" id="address" class="form-control input-lg" placeholder="Address" tabindex="5">
 					</div>
 				</div>
 				<div class="col-xs-12 col-sm-6 col-md-6">
 					<div class="form-group">
-						<input type="password" name="password" id="password" class="form-control input-lg" placeholder="Password" tabindex="6">
+						
+					<div class='input-group date' id="appointmentDate" >
+                   <input type="text"  name="appointmentDate" class="form-control input-lg" placeholder="Appointment Date & Time" tabindex="6">
+					<label class="input-group-addon btn" for="appointmentDate">
+                    <span class="input-group-addon">
+                    <span class="fa fa-calendar open-datetimepicker"></span>
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                    </label>
+                </div>
+					
+					
 					</div>
 				</div>
 			</div>
@@ -85,5 +101,13 @@ footer p {
 	</div>
 </div>
 </div>
+ <script type="text/javascript">
+ $('.open-datetimepicker').click(function(event){
+	    event.preventDefault();
+	    $('#appointmentDate').click();
+	});
+        </script>
+        
+
 </body>
 </html>

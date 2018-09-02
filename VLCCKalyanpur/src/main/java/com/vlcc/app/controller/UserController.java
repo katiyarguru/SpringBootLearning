@@ -6,6 +6,10 @@ import org.omg.CORBA.PRIVATE_MEMBER;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.cassandra.core.CassandraOperations;
 import org.springframework.data.cassandra.core.CassandraTemplate;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -41,14 +45,14 @@ public class UserController {
 		System.out.println("Inside userdetails");
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("userdetails");
-		modelAndView.addObject("Logins", service.findAll());
+		 model.addAttribute("Logins",service.findAll() );
 		return modelAndView;
 	}
 
 	@RequestMapping(value = "/deleteUser", method = RequestMethod.GET)
 	public ModelAndView deleteUser(ModelMap model, @RequestParam(name = "userName") String userName) {
 		System.out.println("Inside delete");
-		service.deleteById(userName);
+	    service.deleteById(userName);
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("userdetails");
 		modelAndView.addObject("Logins", service.findAll());
