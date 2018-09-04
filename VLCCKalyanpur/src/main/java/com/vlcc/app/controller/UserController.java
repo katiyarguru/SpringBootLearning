@@ -1,14 +1,18 @@
 package com.vlcc.app.controller;
 
+import java.util.Optional;
+
 import javax.validation.Valid;
 
 import org.omg.CORBA.PRIVATE_MEMBER;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.cassandra.core.CassandraOperations;
 import org.springframework.data.cassandra.core.CassandraTemplate;
+import org.springframework.data.cassandra.core.query.CassandraPageRequest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -17,6 +21,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.datastax.driver.core.Cluster;
@@ -28,35 +33,58 @@ import com.vlcc.app.service.LoginService;
 public class UserController {
 	private static Cluster cluster;
 	private static Session session;
+	
 
 	@Autowired
 	LoginService service;
 	@Autowired
 	Login user;
+	
+	
 
 	@RequestMapping(value = "/createuser", method = RequestMethod.GET)
 	public String showCreateUserPage(ModelMap model) {
 		System.out.println("Inside create user");
 		return "createuser";
 	}
+	
+	@RequestMapping(value = "/findOne", method = RequestMethod.GET)
+	@ResponseBody
+	public Login findUser(String userName) {
+		
+		Login user = service.findByFirstName(userName);
+		
+		System.out.println("user name is ="+user.getUserName());
+		return user;
+		
+	}
 
 	@RequestMapping(value = "/userdetails", method = RequestMethod.GET)
-	public ModelAndView showUserDetailsPage(ModelMap model) {
+	public ModelAndView showUserDetailsPage(ModelMap model,@RequestParam(defaultValue = "0") int page) {
 		System.out.println("Inside userdetails");
+		int numberOfPages;
+		Slice<Login> data ;
 		ModelAndView modelAndView = new ModelAndView();
+		numberOfPages = (service.findAll().size() / 4) + 1;
 		modelAndView.setViewName("userdetails");
-		 model.addAttribute("Logins",service.findAll() );
+		System.out.println("numberOfPages=" + numberOfPages);
+		data = service.findAll((CassandraPageRequest.first(4)));
+		System.out.println("Page Number=" + page);
+		model.addAttribute("numberOfPages", numberOfPages);
+		model.addAttribute("currentPage", page);
+		model.addAttribute("data", data);
+		if (page != 0) {
+			model.addAttribute("data", service.findAll(data.nextPageable()));
+			
+		}
 		return modelAndView;
 	}
 
 	@RequestMapping(value = "/deleteUser", method = RequestMethod.GET)
-	public ModelAndView deleteUser(ModelMap model, @RequestParam(name = "userName") String userName) {
-		System.out.println("Inside delete");
+	public String deleteUser(@RequestParam(name = "userName") String userName,@RequestParam(defaultValue = "0") int page) {
+		System.out.println("Inside delete" +userName);
 	    service.deleteById(userName);
-		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("userdetails");
-		modelAndView.addObject("Logins", service.findAll());
-		return modelAndView;
+		return "redirect:/userdetails";
 	}
 
 	@RequestMapping(value = "/editUser", method = RequestMethod.GET)
@@ -68,17 +96,11 @@ public class UserController {
 		return modelAndView;
 	}
 
-	@RequestMapping(value = "/updateUser", method = RequestMethod.PUT)
-	public ModelAndView updateUser(ModelMap model, @ModelAttribute @Valid Login updateUser) {
-		cluster = Cluster.builder().addContactPoint("127.0.0.1").withCredentials("vlcc", "vlcc").build();
-		session = cluster.connect("dev");
-		CassandraOperations cassandraOps = new CassandraTemplate(session);
-		cassandraOps.update(updateUser);
-		System.out.println("Inside updateuser");
-		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("welcome");
-
-		return modelAndView;
+	@RequestMapping(value = "/updateUser", method = RequestMethod.POST)
+	public String updateUser(Login updateUser) {
+		System.out.println("Inside updateuser" +updateUser.getUserName());
+		service.save(updateUser);
+		return "redirect:/userdetails";
 	}
 
 	@RequestMapping(value = "/saveuser", method = RequestMethod.POST)

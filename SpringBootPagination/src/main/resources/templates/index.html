@@ -47,7 +47,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr th:each="clientlist : ${clientlist}">
+					<tr th:each="clientlist : ${data.content}">
 						<td th:text="${clientlist.userName}">Text ...</td>
 						<td th:text="${clientlist.first_name}">Text ...</td>
 						<td><button type="button"
@@ -57,45 +57,16 @@
 					</tr>
 				</tbody>
 			</table>
-			<div class="row">
-				<div class="form-group col-md-1">
-					<select class="form-control pagination" id="pageSizeSelect">
-						<option th:each="pageSize : ${pageSizes}" th:text="${pageSize}"
-							th:value="${pageSize}"
-							th:selected="${pageSize} == ${selectedPageSize}"></option>
-					</select>
-				</div>
-				<div th:if="${clientlist.totalPages != 1}"
-					class="form-group col-md-11 pagination-centered">
-					<ul class="pagination">
-						<li th:class="${clientlist.number == 0} ? disabled"><a
-							class="pageLink"
-							th:href="@{/(pageSize=${selectedPageSize}, page=1)}">&laquo;</a>
-						</li>
-						<li th:class="${clientlist.number == 0} ? disabled"><a
-							class="pageLink"
-							th:href="@{/(pageSize=${selectedPageSize}, page=${clientlist.number})}">&larr;</a>
-						</li>
-						<li
-							th:class="${clientlist.number == (page - 1)} ? 'active pointer-disabled'"
-							th:each="page : ${#numbers.sequence(pager.startPage, pager.endPage)}">
-							<a class="pageLink"
-							th:href="@{/(pageSize=${selectedPageSize}, page=${page})}"
-							th:text="${page}"></a>
-						</li>
-						<li
-							th:class="${clientlist.number + 1 == clientlist.totalPages} ? disabled">
-							<a class="pageLink"
-							th:href="@{/(pageSize=${selectedPageSize}, page=${clientlist.number + 2})}">&rarr;</a>
-						</li>
-						<li
-							th:class="${clientlist.number + 1 == clientlist.totalPages} ? disabled">
-							<a class="pageLink"
-							th:href="@{/(pageSize=${selectedPageSize}, page=${clientlist.totalPages})}">&raquo;</a>
-						</li>
-					</ul>
-				</div>
-			</div>
+			
+			
+			<ul class="nav nav-pills">
+			<li class="nav-item" th:each="i : ${#numbers.sequence(0,numberOfPages - 1)}">
+			<a th:href="@{/(page=${i})}"  th:text=${i} class="nav-link"></a>
+			
+			</li>
+			
+			</ul>
+			
 		</div>
 		<!-- END PAGE CONTENT -->
 		<!-- END PAGE CONTAINER -->
